@@ -27,7 +27,7 @@ class EmployeeController extends Controller
             'ci' => 'required|string|max:20|unique:employees',
             'nombre' => 'required|string|max:100',
             'email' => 'required|email|max:100|unique:employees',
-            'rol' => ['required', Rule::in(['admin', 'cocinero', 'mesero'])],  
+            'rol' => ['required', Rule::in(['admin', 'cocinero', 'mesero'])],
             'shift_id' => 'nullable|exists:shifts,id'
         ]);
 
@@ -55,7 +55,7 @@ class EmployeeController extends Controller
             'ci' => 'required|string|max:20|unique:employees,ci,' . $employee->id,
             'nombre' => 'required|string|max:100',
             'email' => 'required|email|max:100|unique:employees,email,' . $employee->id,
-            'rol' => ['required', Rule::in(['admin', 'cocinero', 'mesero'])],  
+            'rol' => ['required', Rule::in(['admin', 'cocinero', 'mesero'])],
             'shift_id' => 'nullable|exists:shifts,id'
         ]);
 
@@ -71,4 +71,4 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index')
             ->with('success', 'Empleado eliminado exitosamente.');
     }
-}
+} 

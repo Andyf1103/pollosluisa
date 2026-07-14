@@ -15,7 +15,7 @@ class Employee extends Model
         'ci',
         'nombre',
         'email',
-        'rol',          
+        'role',          
         'shift_id'
     ];
 
@@ -34,8 +34,8 @@ class Employee extends Model
         return $roles[$this->rol] ?? $this->rol;
     }
 
-    public function scopeRol($query, $rol)
+    public function scopeRol($query, $role)
     {
-        return $query->where('rol', $rol);
+        return $query->where('role', $role);
     }
 }
