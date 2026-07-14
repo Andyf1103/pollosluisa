@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Shift extends Model
 {
     use HasFactory;
-    protected $table="shifts";
+
+    protected $table = 'shifts';
 
     protected $fillable = [
         'hora_entrada',
@@ -16,10 +18,11 @@ class Shift extends Model
     ];
 
     protected $casts = [
-        'dias_descanso' =>'array',
+        'dias_descanso' => 'array',
     ];
-public function employees()
-{
-    return $this->hasMany(Employee::class, 'shift_id ');
-}
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'shift_id');
+    }
 }
