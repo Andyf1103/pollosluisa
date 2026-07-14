@@ -6,22 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('shifts', function (Blueprint $table) {
             $table->id();
+            $table->datetime('hora_entrada');
+            $table->datetime('hora_salida');
+            $table->json('dias_descanso')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('shifts');
     }
 };
