@@ -19,6 +19,7 @@
                     <a href="{{ route('shifts.index') }}" class="text-gray-700 hover:text-blue-600">Turnos</a>
                     <a href="{{ route('employees.index') }}" class="text-gray-700 hover:text-blue-600">Empleados</a>
                     <a href="{{ route('inventories.index') }}" class="text-gray-700 hover:text-blue-600">Inventario</a>
+                    <a href="{{ route('order_details.index') }}" class="text-gray-700 hover:text-blue-600">Detalles</a>
                 </div>
             </div>
         </div>
