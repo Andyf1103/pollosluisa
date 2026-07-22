@@ -8,7 +8,7 @@
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">Turnos</h2>
             <a href="{{ route('shifts.create') }}" 
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 + Nuevo Turno
             </a>
         </div>
@@ -46,13 +46,9 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <a href="{{ route('shifts.show', $shift) }}" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>
                             <a href="{{ route('shifts.edit', $shift) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</a>
-                            <form action="{{ route('shifts.destroy', $shift) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('¿Estás seguro de eliminar este turno?')">
-                                    Eliminar
-                                </button>
-                            </form>
+                            <button type="button" onclick="openModal('{{ route('shifts.destroy', $shift) }}')" class="text-red-600 hover:text-red-900">
+                                Eliminar
+                            </button>
                         </td>
                     </tr>
                     @empty
