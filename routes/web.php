@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShiftController;
 use Illuminate\Support\Facades\Route;
@@ -23,5 +24,6 @@ Route::middleware('auth')->group(function () {
 Route::resource('shifts', ShiftController::class);
 Route::resource('employees', EmployeeController::class);
 Route::resource('inventories', InventoryController::class);
+Route::resource('order_details', OrderDetailController::class);
 
 require __DIR__.'/auth.php';

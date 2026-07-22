@@ -19,7 +19,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CI</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Correo</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rol</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Turno</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
@@ -30,7 +30,7 @@
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $employee->ci }}</td>
                         <td class="px-6 py-4">{{ $employee->nombre }}</td>
-                        <td class="px-6 py-4">{{ $employee->correo }}</td>
+                        <td class="px-6 py-4">{{ $employee->email }}</td>
                         <td class="px-6 py-4">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                                 @if($employee->rol == 'admin') bg-red-100 text-red-800
@@ -45,13 +45,9 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <a href="{{ route('employees.show', $employee) }}" class="text-blue-600 hover:text-blue-900 mr-3">Ver</a>
                             <a href="{{ route('employees.edit', $employee) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</a>
-                            <form action="{{ route('employees.destroy', $employee) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('¿Estás seguro de eliminar este empleado?')">
-                                    Eliminar
-                                </button>
-                            </form>
+                            <button type="button" onclick="openModal('{{ route('employees.destroy', $employee) }}')" class="text-red-600 hover:text-red-900">
+                                Eliminar
+                            </button>
                         </td>
                     </tr>
                     @empty
