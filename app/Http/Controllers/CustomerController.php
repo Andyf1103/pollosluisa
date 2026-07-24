@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
 {
@@ -12,7 +13,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        return view('customers.index', compact('customers'));
     }
 
     /**
@@ -20,7 +21,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.create');
     }
 
     /**
@@ -28,7 +29,19 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'ci' => 'required|string|max:20|unique:customers',
+            'nombre' => 'required|string|max:100',
+            'email' => 'required|email|max:100|unique:customers',
+            'telefono' => 'required|string|max:20|unique:customers',
+            'fecha_nacimiento' => 'nullable|date_format:Y-m-d'
+            
+        ]);
+
+        Customer::create($validated);
+
+        return redirect()->route('customers.index')
+            ->with('success', 'Cliente creado correctamente');
     }
 
     /**
@@ -36,7 +49,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('customers.show', compact('customer'));
     }
 
     /**
@@ -44,7 +57,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customers.edit', compact('customer'));
     }
 
     /**
@@ -52,7 +65,19 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $validated = $request->validate([
+            'ci' => 'required|string|max:20|unique:customers',
+            'nombre' => 'required|string|max:100',
+            'email' => 'required|email|max:100|unique:customers',
+            'telefono' => 'required|string|max:20|unique:customers',
+            'fecha_nacimiento' => 'nullable|date_format:Y-m-d'
+            
+        ]);
+
+        $shift->update($validated);
+
+        return redirect()->route('customers.index')
+            ->with('success', 'Cliente actualizdo exitosamente');
     }
 
     /**
@@ -60,6 +85,8 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return redirect()->route('customers.index')
+            ->with('succes', 'Cliente eliminado correctamente');
     }
 }
