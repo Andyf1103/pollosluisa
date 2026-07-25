@@ -16,7 +16,7 @@ class SaleController extends Controller
 
     public function create()
     {
-        $pedidos = Order::all();
+        $orders = Order::all();
         return view('sales.create', compact('orders'));
     }
 

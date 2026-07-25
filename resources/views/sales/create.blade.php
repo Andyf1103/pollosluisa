@@ -13,16 +13,16 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label for="pedido_id" class="block text-sm font-medium text-gray-700">Pedido</label>
-                    <select name="pedido_id" id="pedido_id" 
+                    <select name="order_id" id="pedido_id" 
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                         <option value="">Seleccionar Pedido</option>
-                        @foreach($pedidos as $pedido)
-                            <option value="{{ $pedido->id }}" {{ old('pedido_id') == $pedido->id ? 'selected' : '' }}>
-                                #{{ $pedido->id }} - {{ $pedido->fecha_pedido }}
+                        @foreach($orders as $order)
+                            <option value="{{ $order->id }}" {{ old('pedido_id') == $order->id ? 'selected' : '' }}>
+                                #{{ $order->id }} - {{ $order->fecha_pedido }}
                             </option>
                         @endforeach
                     </select>
-                    @error('pedido_id')
+                    @error('order_id')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
