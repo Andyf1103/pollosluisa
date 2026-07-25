@@ -8,34 +8,25 @@ use Illuminate\Validation\Rule;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        $customers = Customer::all();
         return view('customers.index', compact('customers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('customers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'ci' => 'required|string|max:20|unique:customers',
-            'nombre' => 'required|string|max:100',
+            'nombre_completo' => 'required|string|max:100',
             'email' => 'required|email|max:100|unique:customers',
             'telefono' => 'required|string|max:20|unique:customers',
-            'fecha_nacimiento' => 'nullable|date_format:Y-m-d'
-            
+            'fecha_nacimiento' => 'nullable|date'
         ]);
 
         Customer::create($validated);
@@ -44,49 +35,36 @@ class CustomerController extends Controller
             ->with('success', 'Cliente creado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Customer $customer)
     {
         return view('customers.show', compact('customer'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Customer $customer)
     {
         return view('customers.edit', compact('customer'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Customer $customer)
     {
         $validated = $request->validate([
-            'ci' => 'required|string|max:20|unique:customers',
-            'nombre' => 'required|string|max:100',
-            'email' => 'required|email|max:100|unique:customers',
-            'telefono' => 'required|string|max:20|unique:customers',
-            'fecha_nacimiento' => 'nullable|date_format:Y-m-d'
-            
+            'ci' => 'required|string|max:20|unique:customers,ci,' . $customer->id,
+            'nombre_completo' => 'required|string|max:100',
+            'email' => 'required|email|max:100|unique:customers,email,' . $customer->id,
+            'telefono' => 'required|string|max:20|unique:customers,telefono,' . $customer->id,
+            'fecha_nacimiento' => 'nullable|date'
         ]);
 
-        $shift->update($validated);
+        $customer->update($validated);
 
         return redirect()->route('customers.index')
-            ->with('success', 'Cliente actualizdo exitosamente');
+            ->with('success', 'Cliente actualizado exitosamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Customer $customer)
     {
         $customer->delete();
         return redirect()->route('customers.index')
-            ->with('succes', 'Cliente eliminado correctamente');
+            ->with('success', 'Cliente eliminado correctamente');
     }
 }
