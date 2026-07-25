@@ -20,6 +20,8 @@
                     <a href="{{ route('employees.index') }}" class="text-gray-700 hover:text-blue-600">Empleados</a>
                     <a href="{{ route('inventories.index') }}" class="text-gray-700 hover:text-blue-600">Inventario</a>
                     <a href="{{ route('order_details.index') }}" class="text-gray-700 hover:text-blue-600">Detalles</a>
+                    <a href="{{ route('customers.index') }}" class="text-gray-700 hover:text-blue-600">Clientes</a>
+
                 </div>
             </div>
         </div>
