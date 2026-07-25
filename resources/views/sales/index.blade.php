@@ -28,7 +28,7 @@
                     @forelse($sales as $sale)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $sale->id }}</td>
-                        <td class="px-6 py-4">#{{ $sale->pedido_id }}</td>
+                        <td class="px-6 py-4">#{{ $sale->order_id }}</td>
                         <td class="px-6 py-4">{{ $sale->fecha ? \Carbon\Carbon::parse($sale->fecha)->format('d/m/Y') : 'N/A' }}</td>
                         <td class="px-6 py-4">Bs {{ number_format($sale->total, 2) }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">

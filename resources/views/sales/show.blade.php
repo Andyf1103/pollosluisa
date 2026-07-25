@@ -24,7 +24,7 @@
             </div>
             <div class="bg-gray-50 p-4 rounded-lg">
                 <p class="text-sm text-gray-600">Pedido</p>
-                <p class="font-semibold">#{{ $sale->pedido_id }}</p>
+                <p class="font-semibold">#{{ $sale->order_id }}</p>
             </div>
             <div class="bg-gray-50 p-4 rounded-lg">
                 <p class="text-sm text-gray-600">Fecha</p>
