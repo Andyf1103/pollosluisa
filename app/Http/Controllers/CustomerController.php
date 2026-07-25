@@ -23,7 +23,7 @@ class CustomerController extends Controller
     {
         $validated = $request->validate([
             'ci' => 'required|string|max:20|unique:customers',
-            'nombre_completo' => 'required|string|max:100',
+            'nombre' => 'required|string|max:100',
             'email' => 'required|email|max:100|unique:customers',
             'telefono' => 'required|string|max:20|unique:customers',
             'fecha_nacimiento' => 'nullable|date'
@@ -47,11 +47,11 @@ class CustomerController extends Controller
 
     public function update(Request $request, Customer $customer)
     {
-        $validated = $request->validate([
-            'ci' => 'required|string|max:20|unique:customers,ci,' . $customer->id,
+       $validated = $request->validate([
+            'ci' => 'required|string|max:20|unique:customers',
             'nombre_completo' => 'required|string|max:100',
-            'email' => 'required|email|max:100|unique:customers,email,' . $customer->id,
-            'telefono' => 'required|string|max:20|unique:customers,telefono,' . $customer->id,
+            'email' => 'required|email|max:100|unique:customers',
+            'telefono' => 'required|string|max:20|unique:customers',
             'fecha_nacimiento' => 'nullable|date'
         ]);
 
