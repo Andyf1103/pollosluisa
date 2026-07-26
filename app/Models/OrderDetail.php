@@ -12,15 +12,15 @@ class OrderDetail extends Model
     protected $table = 'order_details';
 
     protected $fillable = [
-        'pedido_id',
+        'order_id',
         'inventario_id',
         'cantidad',
         'subtotal'
     ];
 
-    public function pedido()
+    public function order()
     {
-        return $this->belongsTo(Order::class, 'pedido_id');
+        return $this->belongsTo(Order::class, 'order_id');
     }
 
     public function inventario()

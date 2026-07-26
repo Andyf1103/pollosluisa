@@ -57,7 +57,12 @@ class Order extends Model
 
     public function orderDetails()
     {
-        return $this->hasMany(OrderDetail::class, 'pedido_id');
+        return $this->hasMany(OrderDetail::class, 'order_id');
+    }
+
+    public function sale()
+    {
+        return $this->hasOne(Sale::class, 'order_id');
     }
 
     public function getEstadoNombreAttribute()

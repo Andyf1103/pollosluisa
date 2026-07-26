@@ -7,10 +7,12 @@
     <div class="p-6 bg-white border-b border-gray-200">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">📋 Pedidos</h2>
-            <a href="{{ route('orders.create') }}" 
-               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                + Nuevo Pedido
-            </a>
+            @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('mesero'))
+                <a href="{{ route('orders.create') }}" 
+                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    + Nuevo Pedido
+                </a>
+            @endif
         </div>
 
         <div class="overflow-x-auto">
@@ -42,33 +44,6 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <a href="{{ route('orders.show', $order) }}" class="text-blue-600 hover:text-blue-900 mr-2">Ver</a>
                             
-                            @if(auth()->user()->hasRole('admin'))
-                                <a href="{{ route('orders.edit', $order) }}" class="text-indigo-600 hover:text-indigo-900 mr-2">Editar</a>
-                            @endif
-                            
-                            @if(auth()->user()->hasRole('mesero'))
-                                @if($order->estado == 'pendiente')
-                                    <form action="{{ route('orders.preparar', $order) }}" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit" class="text-blue-600 hover:text-blue-900 mr-2">Cocinar</button>
-                                    </form>
-                                @endif
-                                
-                                @if($order->estado == 'listo')
-                                    <form action="{{ route('orders.entregar', $order) }}" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit" class="text-green-600 hover:text-green-900 mr-2">Entregar</button>
-                                    </form>
-                                @endif
-                                
-                                @if(!in_array($order->estado, ['entregado', 'cancelado']))
-                                    <form action="{{ route('orders.cancelar', $order) }}" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit" class="text-red-600 hover:text-red-900 mr-2" onclick="return confirm('¿Cancelar pedido?')">Cancelar</button>
-                                    </form>
-                                @endif
-                            @endif
-                            
                             @if(auth()->user()->hasRole('cocinero'))
                                 @if($order->estado == 'pendiente')
                                     <form action="{{ route('orders.preparar', $order) }}" method="POST" class="inline">
@@ -85,9 +60,21 @@
                                 @endif
                             @endif
                             
-                            <button type="button" onclick="openModal('{{ route('orders.destroy', $order) }}')" class="text-red-600 hover:text-red-900">
-                                Eliminar
-                            </button>
+                            @if(auth()->user()->hasRole('mesero'))
+                                @if($order->estado == 'listo')
+                                    <form action="{{ route('orders.entregar', $order) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="text-green-600 hover:text-green-900 mr-2">Entregar</button>
+                                    </form>
+                                @endif
+                                
+                                @if(!in_array($order->estado, ['entregado', 'cancelado']))
+                                    <form action="{{ route('orders.cancelar', $order) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="text-red-600 hover:text-red-900 mr-2" onclick="return confirm('¿Cancelar pedido?')">Cancelar</button>
+                                    </form>
+                                @endif
+                            @endif
                         </td>
                     </tr>
                     @empty

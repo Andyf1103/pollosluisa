@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Customer;
 use App\Models\Inventory;
 use App\Models\OrderDetail;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -51,7 +52,7 @@ class OrderController extends Controller
             $subtotal = $inventory->precio * $producto['cantidad'];
 
             OrderDetail::create([
-                'pedido_id' => $order->id,
+                'order_id' => $order->id,
                 'inventario_id' => $producto['inventario_id'],
                 'cantidad' => $producto['cantidad'],
                 'subtotal' => $subtotal
@@ -135,7 +136,16 @@ class OrderController extends Controller
     public function entregar(Order $order)
     {
         $order->update(['estado' => Order::ESTADO_ENTREGADO]);
-        return redirect()->back()->with('success', 'Pedido entregado al cliente');
+
+        $total = $order->orderDetails->sum('subtotal');
+
+        Sale::create([
+            'order_id' => $order->id,
+            'fecha' => now()->format('Y-m-d'),
+            'total' => $total
+        ]);
+
+        return redirect()->back()->with('success', 'Pedido entregado al cliente. Venta registrada.');
     }
 
     public function cancelar(Order $order)
