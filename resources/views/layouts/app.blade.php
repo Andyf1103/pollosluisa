@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Pollos Doña Luisa')</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-100">
@@ -23,7 +24,11 @@
                     <a href="{{ route('customers.index') }}" class="text-gray-700 hover:text-blue-600">Clientes</a>
                     <a href="{{ route('sales.index') }}" class="text-gray-700 hover:text-blue-600">Ventas</a>
                     <a href="{{ route('orders.index') }}" class="text-gray-700 hover:text-blue-600">Pedidos</a>
-
+                    @auth
+                        @if(auth()->user()->hasRole('cocinero'))
+                            <a href="{{ route('orders.pendientes') }}" class="text-gray-700 hover:text-blue-600">👨‍🍳 Cocina</a>
+                        @endif
+                    @endauth
                 </div>
             </div>
         </div>
@@ -33,6 +38,11 @@
         @if(session('success'))
             <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded">
                 {{ session('success') }}
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded">
+                {{ session('error') }}
             </div>
         @endif
         @yield('content')
@@ -85,5 +95,7 @@
             }
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </body>
 </html>

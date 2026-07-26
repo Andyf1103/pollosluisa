@@ -37,8 +37,19 @@ Route::middleware(['auth', 'role:admin,mesero'])->group(function () {
     Route::resource('order_details', OrderDetailController::class);
 });
 
+Route::middleware(['auth', 'role:admin,mesero,cocinero'])->group(function () {
+    Route::post('orders/{order}/cambiar-estado', [OrderController::class, 'cambiarEstado'])->name('orders.cambiarEstado');
+});
+
 Route::middleware(['auth', 'role:cocinero'])->group(function () {
     Route::get('orders/pendientes', [OrderController::class, 'pendientes'])->name('orders.pendientes');
+    Route::post('orders/{order}/preparar', [OrderController::class, 'preparar'])->name('orders.preparar');
+    Route::post('orders/{order}/listo', [OrderController::class, 'listo'])->name('orders.listo');
+});
+
+Route::middleware(['auth', 'role:admin,mesero'])->group(function () {
+    Route::post('orders/{order}/entregar', [OrderController::class, 'entregar'])->name('orders.entregar');
+    Route::post('orders/{order}/cancelar', [OrderController::class, 'cancelar'])->name('orders.cancelar');
 });
 
 require __DIR__.'/auth.php';
