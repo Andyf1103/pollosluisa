@@ -12,31 +12,33 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'mesa_id',
-        'cliente_id',
-        'empleado_id',
+        'table_id',
+        'customer_id',
+        'employee_id',
         'estado',
         'total',
-        'fecha_pedido'
+        'fecha_pedido',
+        'fecha'
     ];
 
     protected $casts = [
         'fecha_pedido' => 'datetime',
+        'fecha' => 'date',
     ];
 
-    public function mesa()
+    public function table()
     {
-        return $this->belongsTo(Table::class, 'mesa_id');
+        return $this->belongsTo(Table::class, 'table_id');
     }
 
-    public function cliente()
+    public function customer()
     {
-        return $this->belongsTo(Customer::class, 'cliente_id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function empleado()
+    public function employee()
     {
-        return $this->belongsTo(Employee::class, 'empleado_id');
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
 
     public function orderDetails()
