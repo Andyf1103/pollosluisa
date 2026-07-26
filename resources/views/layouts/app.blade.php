@@ -22,6 +22,7 @@
                     <a href="{{ route('order_details.index') }}" class="text-gray-700 hover:text-blue-600">Detalles</a>
                     <a href="{{ route('customers.index') }}" class="text-gray-700 hover:text-blue-600">Clientes</a>
                     <a href="{{ route('sales.index') }}" class="text-gray-700 hover:text-blue-600">Ventas</a>
+                    <a href="{{ route('orders.index') }}" class="text-gray-700 hover:text-blue-600">Pedidos</a>
 
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShiftController;
@@ -29,5 +30,6 @@ Route::resource('inventories', InventoryController::class);
 Route::resource('order_details', OrderDetailController::class);
 Route::resource('customers', CustomerController::class);
 Route::resource('sales', SaleController::class);
+Route::resource('orders', OrderController::class);
 
 require __DIR__.'/auth.php';
